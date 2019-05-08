@@ -437,20 +437,26 @@ void output(Node **startPtr)
     	Ptr = *startPtr;
 		if(fp != NULL) 
 		{	
+			time_t now;
+			time(&now);
+			fputs(ctime(&now), fp);
+			fputs("ID\tName\tPhone\t\tEmail\n", fp);
+       		fputs("------------------------------------------------------------\n", fp);
 			while(!isEmpty(Ptr))
        		{
        			char ID[100],Name[100],Phone[100],Email[100];
-       			sprintf(ID, "ID : %d\n",Ptr->directory.ID);
-				sprintf(Name,"Name : %s\n", Ptr->directory.name);
-           		sprintf(Phone,"Phone : %s\n", Ptr->directory.phone);
-       			sprintf(Email,"Email : %s\n\n", Ptr->directory.Email);
+       			sprintf(ID, "%d\t",Ptr->directory.ID);
+				sprintf(Name,"%s\t", Ptr->directory.name);
+           		sprintf(Phone,"%s\t", Ptr->directory.phone);
+       			sprintf(Email,"%s\n", Ptr->directory.Email);
 				fputs(ID, fp);
            		fputs(Name, fp);
            		fputs(Phone, fp);
            		fputs(Email, fp);
+				fputs("------------------------------------------------------------\n", fp);
 				Ptr = Ptr->nextPtr;
        		}
-		} 
+       	}
 		else 
 		{
 		  	printf("File open error!\n");
@@ -461,8 +467,11 @@ void output(Node **startPtr)
 
 void input(Node **startPtr)
 {
+	char filename[20];
 	FILE* fp;
-	fp = fopen("Directory.txt", "r");
+	printf("Enter full filename(.txt):");
+	scanf("%s",&filename);
+	fp = fopen(filename, "r");
 	Node *Ptr;
 	Ptr = *startPtr;
 	if(fp != NULL) 
