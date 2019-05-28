@@ -2,15 +2,16 @@
 #include<stdlib.h>
 #include<string.h>
 
-typedef struct list{
+struct list{
     int ID;
     char name[30];
     char phone[30];
     char Email[50];
-}List;
+};
+typedef struct list List;
 
 struct node{
-    List directory;
+	List directory;
     struct node *nextPtr;
 };
 typedef struct node Node; 
@@ -45,8 +46,8 @@ int main()
         printf("4.Search\n");
         printf("5.Modify\n");
         printf("6.Clear All\n");
-        printf("7.Output txt\n");
-        printf("8.Input txt\n");
+        printf("7.Input bin\n");
+        printf("8.Output bin\n");
         scanf("%d", &choice);
         system("CLS");
         switch(choice)
@@ -70,11 +71,11 @@ int main()
                 clear(&startPtr);
                 break;
             case 7:
-                output(&startPtr);
-                break;
-            case 8:
                 input(&startPtr);
                 break;
+            case 8:
+            	output(&startPtr);
+            	break;
         }
     }
 }
@@ -280,7 +281,6 @@ void search(Node **startPtr)
 				}
             }
 		}
-
 	}
 }
 
@@ -425,67 +425,45 @@ void clear(Node **startPtr)
 
 void output(Node **startPtr)
 {
-	if(isEmpty(*startPtr))
-    {
-        printf("There is no data!\n");
-    }
-	else
+	FILE* fp;
+	fp = fopen("./Directory.bin", "w+b");
+	Node *Ptr;
+    Ptr = *startPtr;
+	if(fp != NULL) 
+	{	
+		while(!isEmpty(Ptr))
+    	{
+    		fwrite(Ptr, sizeof(List), 1, fp);
+			Ptr = Ptr->nextPtr;
+    	}
+	} 
+	else 
 	{
-		FILE* fp;
-		fp = fopen("Directory.txt", "a");
-		Node *Ptr;
-    	Ptr = *startPtr;
-		if(fp != NULL) 
-		{	
-			time_t now;
-			time(&now);
-			fputs(ctime(&now), fp);
-			fputs("ID\tName\tPhone\t\tEmail\n", fp);
-       		fputs("------------------------------------------------------------\n", fp);
-			while(!isEmpty(Ptr))
-       		{
-       			char ID[100],Name[100],Phone[100],Email[100];
-       			sprintf(ID, "%d\t",Ptr->directory.ID);
-				sprintf(Name,"%s\t", Ptr->directory.name);
-           		sprintf(Phone,"%s\t", Ptr->directory.phone);
-       			sprintf(Email,"%s\n", Ptr->directory.Email);
-				fputs(ID, fp);
-           		fputs(Name, fp);
-           		fputs(Phone, fp);
-           		fputs(Email, fp);
-				fputs("------------------------------------------------------------\n", fp);
-				Ptr = Ptr->nextPtr;
-       		}
-       	}
-		else 
-		{
-		  	printf("File open error!\n");
-		}
-		fclose(fp);
+	  	printf("File open error!\n");
 	}
+	fclose(fp);
 }
 
 void input(Node **startPtr)
 {
-	char filename[20];
 	FILE* fp;
-	printf("Enter full filename(.txt):");
-	scanf("%s",&filename);
-	fp = fopen(filename, "r");
-	Node *Ptr;
-	Ptr = *startPtr;
+	Node *Ptr = NULL;
+	List lis[1];
+	fp = fopen("./Directory.bin", "r+b");
 	if(fp != NULL) 
-	{	
-		char ID[100],Name[100],Phone[100],Email[100];
-		fputs(ID, fp);
-        fputs(Name, fp);
-        fputs(Phone, fp);
-        fputs(Email, fp);
-		Ptr = Ptr->nextPtr;
-	}
+	{
+		fread(lis, sizeof(List), 1, fp);
+		while(1)
+		{
+			printf("%d %s %s %s\n",lis->ID,lis->name,lis->phone,lis->Email);
+			fread(lis, sizeof(List), 1, fp);
+			if(feof(fp))
+				break;
+		}
+	} 
 	else 
 	{
 		printf("File open error!\n");
 	}
-	fclose(fp);	
+	fclose(fp);
 }
