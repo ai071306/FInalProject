@@ -453,12 +453,10 @@ void input(Node **startPtr)
 	if(fp != NULL) 
 	{
 		fread(lis, sizeof(List), 1, fp);
-		while(1)
+		while(!feof(fp))
 		{
 			printf("%d %s %s %s\n",lis->ID,lis->name,lis->phone,lis->Email);
 			fread(lis, sizeof(List), 1, fp);
-			if(feof(fp))
-				break;
 		}
 	} 
 	else 
