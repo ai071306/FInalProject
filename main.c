@@ -464,4 +464,5 @@ void input(Node **startPtr)
 		printf("File open error!\n");
 	}
 	fclose(fp);
+
 }
