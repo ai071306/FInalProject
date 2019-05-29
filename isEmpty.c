@@ -1,6 +1,6 @@
 #include"directory.h" 
 
-int isEmpty(Node *startPtr)//§PÂ_startPtr¦³¨S¦³ÀÉ®× 
+int isEmpty(Node *startPtr)//åˆ¤æ–·startPtræœ‰æ²’æœ‰æª”æ¡ˆ 
 {
     if(startPtr == NULL)
     {
