@@ -1,6 +1,6 @@
 #include"directory.h" 
 
-void search(Node **startPtr)//´M§ä 
+void search(Node **startPtr)//å°‹æ‰¾
 {
 	Node *Ptr ;
 	Ptr = *startPtr;
