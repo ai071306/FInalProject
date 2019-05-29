@@ -1,6 +1,6 @@
 #include"directory.h" 
 
-void printList(Node **startPtr)//Εγ₯ά 
+void printList(Node **startPtr)//ι‘―η€Ί
 {
     Node *Ptr;
     Ptr = *startPtr;
