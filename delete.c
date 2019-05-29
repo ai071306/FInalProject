@@ -1,6 +1,6 @@
 #include"directory.h" 
 
-void del(Node **startPtr)//§R°£ 
+void del(Node **startPtr)//åˆªé™¤
 {
     Node *prePtr, *Ptr;
     int ID;
