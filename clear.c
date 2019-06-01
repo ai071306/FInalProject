@@ -1,6 +1,6 @@
 #include"directory.h" 
 
-void clear(Node **startPtr)//²MªÅ 
+void clear(Node **startPtr)//æ¸…ç©º
 {
     *startPtr = NULL;
 }
