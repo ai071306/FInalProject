@@ -1,6 +1,6 @@
 #include"directory.h" 
 
-void output(Node **startPtr)//¿é¥XbinÀÉ 
+void output(Node **startPtr)//è¼¸å‡ºbinæª”
 {
 	FILE* fp;
 	fp = fopen("./Directory.bin", "w+b");
