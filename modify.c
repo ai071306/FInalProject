@@ -1,6 +1,6 @@
 #include"directory.h" 
 
-void modify(Node **startPtr)//­×§ï 
+void modify(Node **startPtr)//ä¿®æ”¹
 {
 	Node *Ptr;
 	Ptr = *startPtr;
